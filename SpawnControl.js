@@ -104,8 +104,11 @@ module.exports = {
         if (numberOfHarvesters <= 1||numberOfHarvesters == null||numberOfHarvesters==undefined) {
             return spawner.createCreep([WORK, CARRY, MOVE], undefined, { Career: "Harvester", SpawnRoom:spawner.room.name, Task: undefined, Job: "Base" });
         }
+        else if (numberOfPopulators <= 1 || numberOfPopulators == null || numberOfPopulators == undefined) {
+            return spawner.createCreep([WORK, CARRY, MOVE], undefined, { Career: "Populator", SpawnRoom:spawner.room.name, Task: undefined});
+        }
         else if (numberOfUpgraders <= 1 || numberOfUpgraders == null || numberOfUpgraders == undefined) {
-            return spawner.createCreep([WORK, CARRY, MOVE], undefined, { Career: "Upgrader", SpawnRoom:spawner.room.name, Task: undefined, Job: "Base" });
+            return spawner.createCreep([WORK, CARRY, MOVE], undefined, { Career: "Upgrader", SpawnRoom: spawner.room.name, Task: undefined, Job: "Base" });
         }
     }
 }
