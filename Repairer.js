@@ -90,15 +90,19 @@ module.exports = {
         else if (i.memory.Task == "InTransitS") {
             i.memory.SpawnRoom = i.room;
             i.memory.Job = "Base";
-            i.memory.Load = i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL});
-            if (i.memory.Load == undefined || i.memory.Load == null) {
-                console.log("No Work, changing task")
-            }
-            else {
-                i.memory.Load = i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL });
+            var closestDamagedStructure = i.pos.findClosestByRange(FIND_STRUCTURES,
+            {
+                filter: (structure) => (structure.structureType === STRUCTURE_SPAWN ||
+                            structure.structureType === STRUCTURE_ROAD ||
+                            structure.structureType === STRUCTURE_RAMPART ||
+                            structure.structureType === STRUCTURE_EXTENSION ||
+                            structure.structureType === STRUCTURE_CONTAINER ||
+                            structure.structureType === STRUCTURE_STORAGE ||
+                            structure.structureType === STRUCTURE_WALL) && (structure.hits < 200000 && structure.hits < structure.hitsMax)
 
-                if (i.repair(i.memory.Load, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    i.moveTo(i.memory.Load);
+            });
+            if (i.repair(closestDamagedStructure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                i.moveTo(closestDamagedStructure);
                 }
                 else if (i.carry.energy == 0) {
                     i.memory.Task = "InTransitH";
@@ -106,4 +110,3 @@ module.exports = {
             }
         }
     }
-}
