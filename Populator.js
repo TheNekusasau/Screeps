@@ -18,7 +18,7 @@ module.exports = {
         else if (i.memory.Task == "InTransitS") {
             var structure = i.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (s) => (((s.structureType === STRUCTURE_SPAWN
-                            || s.structureType === STRUCTURE_EXTENSION)
+                            || s.structureType === STRUCTURE_EXTENSION||s.structureType === STRUCTURE_TOWER)
                             && s.energy < s.energyCapacity) || (s.structureType === STRUCTURE_CONTAINER &&
                    s.store[RESOURCE_ENERGY] < s.storeCapacity))
             });

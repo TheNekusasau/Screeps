@@ -1,9 +1,9 @@
 module.exports = {
     run: function (spawner) {
         var mNHarvesters = 8;
-        var mNUpgraders = 3;
-        var mNBuilders = 2;
-        var mNRepairers = 4;
+        var mNUpgraders = 2;
+        var mNBuilders = 1;
+        var mNRepairers = 1;
         var mNPopulators = 2;
         var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.Career == 'Builder');
         var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.Career == 'Repairer');

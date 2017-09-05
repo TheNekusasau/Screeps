@@ -7,8 +7,8 @@ module.exports.loop = function () {
             SpawnControl.run(spawner);
 
         }
-
     }
+        Tower1 = Game.getObjectById("59ab032df1c0f272681ecf31");
     for (var i in Game.creeps) {
         i = Game.creeps[i];
         CreepControl.run(i);
@@ -18,16 +18,14 @@ module.exports.loop = function () {
             delete Memory.creeps[i];
         }
     }
-    Tower1 = Game.getObjectById("59ab032df1c0f272681ecf31");
     for (var i in Memory.creeps) {
         i = Game.creeps[i];
         if (i.my === true) {
+        hostiles = i.room.find(FIND_HOSTILE_CREEPS);
+        Tower1.attack(hostiles[0]);
             if (i.hits < i.hitsmax) {
                 Tower1.heal(i);
             }
-        }
-        else {
-            Tower1.attack(i);
         }
     }
 }
