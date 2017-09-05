@@ -3,13 +3,30 @@ var CareerRepairer = require('Repairer');
 var CareerWallRepairer = require('WallRepairer');
 var CareerHarvester = require('Harvester');
 var CareerUpgrader = require('Upgraders');
+var CareerPopulator = require('Populator');
 module.exports = {
     run: function (i) {
         if (i.memory.Career == "Builder") {
             if (i.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) == undefined
                 || i.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) == null) {
-                if (i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL }) == undefined
-                    || i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL }) == null) {
+                if (i.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (structure) => (structure.structureType === STRUCTURE_SPAWN ||
+                            structure.structureType === STRUCTURE_ROAD ||
+                            structure.structureType === STRUCTURE_RAMPART ||
+                            structure.structureType === STRUCTURE_EXTENSION ||
+                            structure.structureType === STRUCTURE_CONTAINER ||
+                            structure.structureType === STRUCTURE_STORAGE ||
+                            structure.structureType === STRUCTURE_WALL) && (structure.hits < 200000 && structure.hits < structure.hitsMax)
+                }) == undefined
+                    || i.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (structure) => (structure.structureType === STRUCTURE_SPAWN ||
+                            structure.structureType === STRUCTURE_ROAD ||
+                            structure.structureType === STRUCTURE_RAMPART ||
+                            structure.structureType === STRUCTURE_EXTENSION ||
+                            structure.structureType === STRUCTURE_CONTAINER ||
+                            structure.structureType === STRUCTURE_STORAGE ||
+                            structure.structureType === STRUCTURE_WALL) && (structure.hits < 200000 && structure.hits < structure.hitsMax)
+                }) == null) {
                     CareerHarvester.run(i);
                 }
                 else {
@@ -21,13 +38,25 @@ module.exports = {
             }
         }
         else if (i.memory.Career == "Repairer") {
-            if (i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL }) == undefined
-                || i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType != STRUCTURE_WALL }) == null) {
-                if (i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType == STRUCTURE_WALL }) != undefined
-                    || i.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.hits < (s.hitsMax / 3) && s.structureType == STRUCTURE_WALL }) != null){
-                    CareerWallRepairer.run(i);
-                }
-                else if (i.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) == undefined
+            if (i.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => (structure.structureType === STRUCTURE_SPAWN ||
+                            structure.structureType === STRUCTURE_ROAD ||
+                            structure.structureType === STRUCTURE_RAMPART ||
+                            structure.structureType === STRUCTURE_EXTENSION ||
+                            structure.structureType === STRUCTURE_CONTAINER ||
+                            structure.structureType === STRUCTURE_STORAGE ||
+                            structure.structureType === STRUCTURE_WALL) && (structure.hits < 200000 && structure.hits < structure.hitsMax)
+            }) == undefined
+                || i.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => (structure.structureType === STRUCTURE_SPAWN ||
+                            structure.structureType === STRUCTURE_ROAD ||
+                            structure.structureType === STRUCTURE_RAMPART ||
+                            structure.structureType === STRUCTURE_EXTENSION ||
+                            structure.structureType === STRUCTURE_CONTAINER ||
+                            structure.structureType === STRUCTURE_STORAGE ||
+                            structure.structureType === STRUCTURE_WALL) && (structure.hits < 200000 && structure.hits < structure.hitsMax)
+            }) == null) {
+                if (i.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) == undefined
                     || i.pos.findClosestByPath(FIND_CONSTRUCTION_SITES) == null) {
                     CareerHarvester.run(i);
                 }
@@ -60,6 +89,9 @@ module.exports = {
         }
         else if (i.memory.Career == "Upgrader") {
             CareerUpgrader.run(i);
+        }
+        else if (i.memory.Career == "Populator") {
+            CareerPopulator.run(i);
         }
     }
 }

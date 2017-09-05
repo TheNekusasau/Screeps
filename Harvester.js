@@ -4,6 +4,9 @@ module.exports = {
         if (i.memory.Task == undefined) {
             i.memory.Task = "InTransitH";
         };
+        if (i.memory.Load == undefined){
+            i.memory.Load = "59ad1ceffab43671d6d469cf" 
+        }
         if (i.memory.Job == undefined) {
             var select = Math.floor((Math.random()) * 5);
             if (select == 0) {
@@ -73,7 +76,6 @@ module.exports = {
                 }
             }
             else {
-                i.memory.Load = undefined;
                 if (i.posY == 0) { i.move(TOP); }
                 if (i.posY == 49) { i.move(BOTTOM); }
                 if (i.posX == 0) { i.move(RIGHT); }
@@ -92,57 +94,12 @@ module.exports = {
 
 
         else if (i.memory.Task == "InTransitS") {
-            if (i.room.name != i.memory.SpawnRoom.name) {
-                if (i.memory.Load == null || i.memory.Load == undefined) {
-                    if (i.memory.Anchor != undefined) {
-                        i.moveTo(i.memory.Anchor);
-                    }
-                    else {
-                        i.moveTo(Game.spawns.Spawn1);
-                    }
-                }
-                else {
-                    i.moveTo(i.memory.Load);
-                }
-            }
-            else {
                 if (i.posY == 0) { i.move(TOP); }
                 if (i.posY == 49) { i.move(BOTTOM); }
                 if (i.posX == 0) { i.move(RIGHT); }
                 if (i.posX == 49) { i.move(LEFT); }
-                if (i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                    filter: (s) => ((s.structureType == STRUCTURE_TOWER || s.structureType == STRUCTURE_SPAWN
-                        || s.structureType == STRUCTURE_EXTENSION)
-                        && (s.energy < s.energyCapacity)) != null}) ||i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                    filter: (s) => ((s.structureType == STRUCTURE_TOWER || s.structureType == STRUCTURE_SPAWN
-                        || s.structureType == STRUCTURE_EXTENSION)
-                        && (s.energy < s.energyCapacity)) != undefined
-                })) {
-                    i.memory.Load = i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                        filter: (s) => ((s.structureType == STRUCTURE_TOWER || s.structureType == STRUCTURE_SPAWN
-                            || s.structureType == STRUCTURE_EXTENSION)
-                            && (s.energy < s.energyCapacity))
-                    });
-
-                }
-                else if (i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                    filter: (s) => ((s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) && s.store[RESOURCE_ENERGY] < s.storeCapacity) != null
-                }) || i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                    filter: (s) => ((s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) && s.store[RESOURCE_ENERGY] < s.storeCapacity) != undefined
-                })) {
-                    i.memory.Load = i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-
-                        filter: (s) => ((s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) && s.store[RESOURCE_ENERGY] < s.storeCapacity)
-                    });
-
-                }
-                if (i.transfer(i.memory.Load, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    i.moveTo(i.memory.Load);
+                if (i.transfer(Game.getObjectById(i.memory.Load), RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    i.moveTo(Game.getObjectById(i.memory.Load));
                 }
                 else if (i.carry.energy == 0) {
                     i.memory.Task = "InTransitH";
@@ -150,4 +107,3 @@ module.exports = {
             }
         }
     }
-}
