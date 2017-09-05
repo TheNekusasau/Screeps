@@ -16,11 +16,11 @@ module.exports = {
             }
         }
         else if (i.memory.Task == "InTransitS") {
-            var structure = i.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: (s) => ((s.structureType === STRUCTURE_SPAWN
+            var structure = i.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (s) => (((s.structureType === STRUCTURE_SPAWN
                             || s.structureType === STRUCTURE_EXTENSION)
                             && s.energy < s.energyCapacity) || (s.structureType === STRUCTURE_CONTAINER &&
-                   s.store[RESOURCE_ENERGY] < s.storeCapacity)
+                   s.store[RESOURCE_ENERGY] < s.storeCapacity))
             });
 
             if (i.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

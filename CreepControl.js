@@ -1,6 +1,5 @@
 var CareerBuilder = require('Builder');
 var CareerRepairer = require('Repairer');
-var CareerWallRepairer = require('WallRepairer');
 var CareerHarvester = require('Harvester');
 var CareerUpgrader = require('Upgraders');
 var CareerPopulator = require('Populator');

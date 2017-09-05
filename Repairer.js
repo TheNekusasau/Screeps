@@ -48,8 +48,12 @@ module.exports = {
         if (i.memory.Task == "InTransitH") {
             if (i.room.name == i.memory.SpawnRoom) {
                 if (i.memory.Job == "Base") {
-                    if (i.harvest(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE)) == ERR_NOT_IN_RANGE) {
-                        i.moveTo(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE));
+                    var structure = i.pos.findClosestByPath(FIND_STRUCTURES, {
+                        filter: (s) => s.structureType === STRUCTURE_CONTAINER &&
+                           s.store[RESOURCE_ENERGY] > i.carryCapacity
+                    });
+                    if (i.withdraw(structure, RESOURCE_ENERGY, (i.carryCapacity - i.carry)) == ERR_NOT_IN_RANGE) {
+                        i.moveTo(structure);
                     }
                     else if (i.carry.energy == i.carryCapacity) {
                         i.memory.Task = "InTransitS";
@@ -78,8 +82,12 @@ module.exports = {
                 if (i.posY = 49) { i.move(BOTTOM); }
                 if (i.posX = 0) { i.move(RIGHT); }
                 if (i.posX = 49) { i.move(LEFT); }
-                if (i.harvest(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE)) == ERR_NOT_IN_RANGE) {
-                    i.moveTo(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE));
+                var structure = i.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (s) => s.structureType === STRUCTURE_CONTAINER &&
+                       s.store[RESOURCE_ENERGY] > i.carryCapacity
+                });
+                if (i.withdraw(structure, RESOURCE_ENERGY, (i.carryCapacity - i.carry)) == ERR_NOT_IN_RANGE) {
+                    i.moveTo(structure);
                 }
                 else if (i.carry.energy == i.carryCapacity) {
                     i.memory.Task = "InTransitS";

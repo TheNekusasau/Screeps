@@ -1,6 +1,6 @@
 module.exports = {
     run: function (spawner) {
-        var mNHarvesters = 2;
+        var mNHarvesters = 8;
         var mNUpgraders = 3;
         var mNBuilders = 2;
         var mNRepairers = 4;
