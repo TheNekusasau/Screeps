@@ -45,7 +45,7 @@ module.exports = {
             }
         }
         if (i.memory.Task == "InTransitH") {
-            if (i.room.name == i.memory.SpawnRoom.name) {
+            if (i.room.name == i.memory.SpawnRoom) {
                 if (i.memory.Job == "Base") {
                     if (i.harvest(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE)) == ERR_NOT_IN_RANGE) {
                         i.moveTo(i.pos.findClosestByPath(FIND_SOURCES_ACTIVE));
@@ -91,7 +91,7 @@ module.exports = {
 
 
         else if (i.memory.Task == "InTransitS") {
-            if (i.room.name != i.memory.SpawnRoom.name) {
+            if (i.room.name != i.memory.SpawnRoom) {
                 if (i.memory.Load == null || i.memory.Load == undefined) {
                     if (i.memory.Anchor != undefined) {
                         i.moveTo(i.memory.Anchor);
