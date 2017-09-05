@@ -21,13 +21,13 @@ module.exports.loop = function () {
     Tower1 = Game.getObjectById("59ab032df1c0f272681ecf31");
     for (var i in Memory.creeps) {
         i = Game.creeps[i];
-        if (i.my == true) {
+        if (i.my === true) {
             if (i.hits < i.hitsmax) {
                 Tower1.heal(i);
             }
         }
         else {
-            Tower1.Attack(i);
+            Tower1.attack(i);
         }
     }
 }

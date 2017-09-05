@@ -74,6 +74,12 @@ module.exports = {
                     path = i.pos.findClosestByPath(FIND_EXIT_RIGHT);
                     i.moveTo(path);
                 }
+                else {
+                    if (i.posY == 0) { i.move(TOP); }
+                    if (i.posY == 49) { i.move(BOTTOM); }
+                    if (i.posX == 0) { i.move(RIGHT); }
+                    if (i.posX == 49) { i.move(LEFT); }
+                }
             }
             else {
                 if (i.posY == 0) { i.move(TOP); }
