@@ -1,4 +1,3 @@
-require('prototype.spawn')();
 module.exports = {
     run: function (spawner) {
         var mNHarvesters = 2;

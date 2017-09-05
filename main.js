@@ -1,6 +1,5 @@
 var CreepControl = require('CreepControl');
 var SpawnControl = require('SpawnControl');
-require('prototype.spawn')();
 module.exports.loop = function () {
     for (var spawner in Game.spawns) {
         if (spawner != undefined) {
